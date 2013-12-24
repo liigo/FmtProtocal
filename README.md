@@ -1,4 +1,4 @@
-Fmt Protocol (for Android/Java through JNI)
+Fmt Protocol (for Android/Java)
 ===========================================
 
 # 概述
@@ -8,7 +8,7 @@ Fmt Protocol 是一套简单的自定义网络传输协议。其核心组件是 Fmt 和 cmd 。其中，Fmt
 的 Fmt 对象的数据格式，处理时就可以依据 cmd 判断与其关联的 Fmt 的内容。
 
 Fmt Protocol 是自定义协议，其存在有历史原因。Fmt Protocol 采用C语言编写，作者是龚辟愚。
-本文作者 Liigo 负责封装为Java库，本文仅涉及其概念和用法(for Java)。[实现细节](#jni_impl)
+本文作者 Liigo 负责封装为Java库，本文仅涉及其概念和用法(for Java)。[实现细节](#internal-impl)（Android NDK + Java JNI）。
 
 # Fmt 对象
 Fmt 是一个数据对象，可序列化和反序列化。其中可以存储各种类型的值（byte/short/double/byte[]/String/对象/数组）。
@@ -156,8 +156,9 @@ FmtParser负责从二进制数据流解析出配对的 Fmt 和 cmd，这一步可以理解为 Fmt.packet(
 
 	parser.close();
 
-<span id="jni_impl"></span>
+<a name="internal-impl"></a>
 # 实现细节（Java JNI + Android NDK）
+
 本项目核心代码在 src 和 jni 两目录内。src目录内主要是 Java 代码，主要由 Fmt.java 和 FmtParser.java 这两个 Java Class 组成（许多方法通过JNI本地库实现），另有几个辅助类和测试代码（测试代码目前写在 MainActivity.java 内）。jni目录内主要是 C 代码，com_tianxunnet_fmt_Fmt.c 和 com_tianxunnet_fmt_FmtParser.c 这两个文件是本项目内最核心的代码，主要用于实现 Fmt 和 FmtParser 这两个Java本地类；com_tianxunnet_fmt_Fmt.h 和 com_tianxunnet_fmt_FmtParser.h 是使用 javah 依据 Fmt.java / FmtParser.java 自动生成的；jin/protocol目录内是Fmt协议本身的源代码。本项目中的JNI本地库需使用 Android NDK 编译。
 
 使用 javah 生成 .h 文件的操作（必要时指定 javah 全路径）：
