@@ -1,12 +1,16 @@
 package com.tianxunnet.fmt;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.Arrays;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
-import com.tianxunnet.fmt.*;
 
 public class MainActivity extends Activity {
 
@@ -17,6 +21,8 @@ public class MainActivity extends Activity {
         
         testFmt();
         testFmtParser();
+        
+        testFmtSocket();
     }
 
     @Override
@@ -156,5 +162,58 @@ public class MainActivity extends Activity {
     	if(!expr) {
     		Log.e("fmt-native", "ensure failed!");
     	}
+    }
+    
+    Runnable r = new Runnable() {
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			try {
+				Socket socket = new Socket("192.168.1.8", 3199);
+				//InputStream in = socket.getInputStream();
+				OutputStream out = socket.getOutputStream();
+				
+				byte[] packet = buildLoginPacket();
+				
+				out.write(packet);
+				out.flush();
+				socket.close();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+    	
+    };
+    
+    private void testFmtSocket() {
+    	Thread thread = new Thread(r);
+    	thread.start();
+    }
+    
+    private void addDatetimeField(Fmt fmt, String name, long millis) {
+    	Fmt timeFmt = Fmt.newDatetime(millis);
+    	fmt.addField(name, timeFmt);
+    	timeFmt.decRef();
+    }
+    //构建客户端登录包
+    private byte[] buildLoginPacket() {
+    	Fmt loginFmt = Fmt.newObjectFmt();
+    	
+    	loginFmt.addStrField("mac", "aa:bb:cc:dd:ee:ff");
+    	loginFmt.addStrField("name", "android-host");
+    	loginFmt.addStrField("ip", "255:254:253:252");
+    	loginFmt.addStrField("osVer", "android-version-4.3");
+    	loginFmt.addIntField("majorVer", 0);
+    	loginFmt.addIntField("minorVer", 0);
+    	loginFmt.addIntField("buildVer", 3);
+    	addDatetimeField(loginFmt, "uptime", System.currentTimeMillis());
+    	
+    	byte[] packet = loginFmt.packet(ProtocolCmd.PT_LOGIN, 0);
+    	loginFmt.decRef();
+    	
+    	return packet;
     }
 }

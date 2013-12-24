@@ -38,6 +38,16 @@ public class Fmt {
 
 	// Manage Fmt objects' fields. Please ensure getType()==ProtocolCmd.PDT_OBJECT.
 	public native void addField(String name, Fmt field);
+	public void addStrField(String name, String value) {
+    	Fmt strFmt = Fmt.newStringFmt(value);
+    	addField(name, strFmt);
+    	strFmt.decRef();
+    }
+	public void addIntField(String name, int value) {
+    	Fmt intFmt = Fmt.newIntFmt(value);
+    	addField(name, intFmt);
+    	intFmt.decRef();
+    }
 	public native void delField(String name);
 	public native Fmt  getField(String name);
 	public native int  getFieldCount();
