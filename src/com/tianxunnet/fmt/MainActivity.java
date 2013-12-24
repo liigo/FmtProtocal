@@ -168,13 +168,18 @@ public class MainActivity extends Activity {
 		public void run() {
 			// TODO Auto-generated method stub
 			try {
-				Socket socket = new Socket("192.168.1.8", 3199);
+				Socket socket = new Socket("10.10.10.1", 3699); // 路由器IP和服务端口
 				//InputStream in = socket.getInputStream();
 				OutputStream out = socket.getOutputStream();
-				
+
+				// 经测试可以登录成功
 				byte[] packet = buildLoginPacket();
-				
 				out.write(packet);
+
+				// 经测试可以提交URL
+				packet = buildUrlPacket();
+				out.write(packet);
+
 				out.flush();
 				socket.close();
 				
@@ -183,7 +188,6 @@ public class MainActivity extends Activity {
 				e.printStackTrace();
 			}
 		}
-    	
     };
     
     private void testFmtSocket() {
@@ -191,27 +195,41 @@ public class MainActivity extends Activity {
     	thread.start();
     }
     
-    private void addDatetimeField(Fmt fmt, String name, long millis) {
-    	Fmt timeFmt = Fmt.newDatetime(millis);
-    	fmt.addField(name, timeFmt);
-    	timeFmt.decRef();
-    }
-    //构建客户端登录包
+    // 构建客户端登录包
     private byte[] buildLoginPacket() {
     	Fmt loginFmt = Fmt.newObjectFmt();
-    	
-    	loginFmt.addStrField("mac", "aa:bb:cc:dd:ee:ff");
-    	loginFmt.addStrField("name", "android-host");
-    	loginFmt.addStrField("ip", "255:254:253:252");
-    	loginFmt.addStrField("osVer", "android-version-4.3");
+    	// 以下数据仅作示意，为方便测试一切从简
+    	loginFmt.addStringField("mac", "aa:bb:cc:dd:ee:ff");
+    	loginFmt.addStringField("name", "android-host");
+    	loginFmt.addStringField("ip", "255:254:253:252");
+    	loginFmt.addStringField("osVer", "android-version-4.3");
     	loginFmt.addIntField("majorVer", 0);
     	loginFmt.addIntField("minorVer", 0);
     	loginFmt.addIntField("buildVer", 3);
-    	addDatetimeField(loginFmt, "uptime", System.currentTimeMillis());
+    	loginFmt.addDatetimeField("uptime", System.currentTimeMillis());
     	
     	byte[] packet = loginFmt.packet(ProtocolCmd.PT_LOGIN, 0);
     	loginFmt.decRef();
     	
+    	return packet;
+    }
+    
+    private byte[] buildUrlPacket() {
+    	Fmt urlFmt = Fmt.newObjectFmt();
+    	urlFmt.addByteField("type", (byte)0); // 0:get, 1:post
+    	urlFmt.addStringField("url", "[test] www.liigo.com");
+    	urlFmt.addStringField("title", "[test] title");
+
+    	Fmt clientFmt = Fmt.newObjectFmt();
+    	// 所有提交信息都必须有以下字段，其中data的内容视cmd不同而不同
+    	clientFmt.addStringField("ip", "255:254:253:252");
+    	clientFmt.addStringField("mac", "aa:bb:cc:dd:ee:ff");
+    	clientFmt.addStringField("name", "android-host");
+    	clientFmt.addField("data", urlFmt); // the real data
+    	
+    	byte[] packet = clientFmt.packet(ProtocolCmd.PT_COMMIT_URL, 0);
+    	urlFmt.decRef();
+    	clientFmt.decRef();
     	return packet;
     }
 }

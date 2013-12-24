@@ -25,7 +25,7 @@ public class Fmt {
 	public static native Fmt newFloatFmt(float f);
 	public static native Fmt newDoubleFmt(double d);
 	/** the arg may be System.currentTimeMillis() or something other */
-	public static native Fmt newDatetime(long millis);
+	public static native Fmt newDatetimeFmt(long millis);
 	public static native Fmt newBinaryFmt(byte[] data);
 	public static Fmt newStringFmt(String str) {
 		try {
@@ -36,23 +36,53 @@ public class Fmt {
 		}
 	}
 
-	// Manage Fmt objects' fields. Please ensure getType()==ProtocolCmd.PDT_OBJECT.
+	// Manage object-Fmt objects' fields. Please ensure getType()==ProtocolCmd.PDT_OBJECT.
 	public native void addField(String name, Fmt field);
-	public void addStrField(String name, String value) {
-    	Fmt strFmt = Fmt.newStringFmt(value);
-    	addField(name, strFmt);
-    	strFmt.decRef();
+	public void addByteField(String name, byte b) {
+		Fmt byteFmt = Fmt.newByteFmt(b);
+		addField(name, byteFmt);
+		byteFmt.decRef();
+	}
+	public void addShortField(String name, short value) {
+    	Fmt shortFmt = Fmt.newShortFmt(value);
+    	addField(name, shortFmt);
+    	shortFmt.decRef();
     }
 	public void addIntField(String name, int value) {
     	Fmt intFmt = Fmt.newIntFmt(value);
     	addField(name, intFmt);
     	intFmt.decRef();
     }
+	public void addLongField(String name, long value) {
+    	Fmt longFmt = Fmt.newLongFmt(value);
+    	addField(name, longFmt);
+    	longFmt.decRef();
+    }
+	public void addDoubleField(String name, double value) {
+    	Fmt doubleFmt = Fmt.newDoubleFmt(value);
+    	addField(name, doubleFmt);
+    	doubleFmt.decRef();
+    }
+	public void addDatetimeField(String name, long millis) {
+    	Fmt timeFmt = Fmt.newDatetimeFmt(millis);
+    	addField(name, timeFmt);
+    	timeFmt.decRef();
+    }
+	public void addBinaryField(String name, byte[] value) {
+    	Fmt binaryFmt = Fmt.newBinaryFmt(value);
+    	addField(name, binaryFmt);
+    	binaryFmt.decRef();
+    }
+	public void addStringField(String name, String value) {
+    	Fmt strFmt = Fmt.newStringFmt(value);
+    	addField(name, strFmt);
+    	strFmt.decRef();
+    }
 	public native void delField(String name);
 	public native Fmt  getField(String name);
 	public native int  getFieldCount();
 
-	// Manage Fmt array objects' elements. Please getType()==ProtocolCmd.PDT_ARRAY.
+	// Manage array-Fmt objects' elements. Please getType()==ProtocolCmd.PDT_ARRAY.
 	public native int  arrayLength();
 	public native void arrayAppend(Fmt element);
 	public native void arrayRemove(int index);

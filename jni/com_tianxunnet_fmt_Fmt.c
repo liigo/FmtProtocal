@@ -134,10 +134,10 @@ JNIEXPORT jobject JNICALL Java_com_tianxunnet_fmt_Fmt_newDoubleFmt
 
 /*
  * Class:     com_tianxunnet_fmt_Fmt
- * Method:    newDatetime
+ * Method:    newDatetimeFmt
  * Signature: (J)Lcom/tianxunnet/fmt/Fmt;
  */
-JNIEXPORT jobject JNICALL Java_com_tianxunnet_fmt_Fmt_newDatetime
+JNIEXPORT jobject JNICALL Java_com_tianxunnet_fmt_Fmt_newDatetimeFmt
   (JNIEnv *env, jclass fmt, jlong v) {
 	return new_fmt(env, fmt_new_datetime((__int64)v / 1000)); // milliseconds to seconds
 }
