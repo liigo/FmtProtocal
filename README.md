@@ -1,47 +1,47 @@
 Fmt Protocol (for Android/Java)
 ===========================================
 
-# ¸ÅÊö
-Fmt Protocol ÊÇÒ»Ì×¼òµ¥µÄ×Ô¶¨ÒåÍøÂç´«ÊäĞ­Òé¡£ÆäºËĞÄ×é¼şÊÇ Fmt ºÍ cmd ¡£ÆäÖĞ£¬FmtÊÇ´¿´âµÄÊı¾İ¶ÔÏó£¬cmdÊÇÓ¦ÓÃ³ÌĞò×Ô¶¨ÒåµÄÊıÖµ£¨int£©¡£
-µ±ĞèÒªÔÚÍøÂçÖĞ´«ÊäÊ±£¬°Ñ Fmt ºÍ cmd ´ò°üÎªÒ»¸öÊı¾İ°ü£¨Packet£©£¬¼´Éú³ÉÒ»¶Î¶ş½øÖÆÊı¾İÁ÷£¬Í¨¹ı Socket ·¢ËÍ¸ø½ÓÊÕÕß¡£½ÓÊÕÕßÍ¨¹ı Socket ½ÓÊÕ
-µ½¶ş½øÖÆÊı¾İÁ÷Ö®ºó£¬È«²¿ÒÀ´ÎÌá½»¸ø FmtParser ½âÎö£¬×îÖÕ½âÎö³öÅä¶ÔµÄ£¨Fmt + cmd£©¡£³ÌĞòµÄ½ÓÊÕ·½ºÍ·¢ËÍ·½£¬¿ÉÊÂÏÈÔ¼¶¨ºÃÃ¿Ò»¸öÓë cmd ¶ÔÓ¦
-µÄ Fmt ¶ÔÏóµÄÊı¾İ¸ñÊ½£¬´¦ÀíÊ±¾Í¿ÉÒÔÒÀ¾İ cmd ÅĞ¶ÏÓëÆä¹ØÁªµÄ Fmt µÄÄÚÈİ¡£
+# æ¦‚è¿°
+Fmt Protocol æ˜¯ä¸€å¥—ç®€å•çš„è‡ªå®šä¹‰ç½‘ç»œä¼ è¾“åè®®ã€‚å…¶æ ¸å¿ƒç»„ä»¶æ˜¯ Fmt å’Œ cmd ã€‚å…¶ä¸­ï¼ŒFmtæ˜¯çº¯ç²¹çš„æ•°æ®å¯¹è±¡ï¼Œcmdæ˜¯åº”ç”¨ç¨‹åºè‡ªå®šä¹‰çš„æ•°å€¼ï¼ˆintï¼‰ã€‚
+å½“éœ€è¦åœ¨ç½‘ç»œä¸­ä¼ è¾“æ—¶ï¼ŒæŠŠ Fmt å’Œ cmd æ‰“åŒ…ä¸ºä¸€ä¸ªæ•°æ®åŒ…ï¼ˆPacketï¼‰ï¼Œå³ç”Ÿæˆä¸€æ®µäºŒè¿›åˆ¶æ•°æ®æµï¼Œé€šè¿‡ Socket å‘é€ç»™æ¥æ”¶è€…ã€‚æ¥æ”¶è€…é€šè¿‡ Socket æ¥æ”¶
+åˆ°äºŒè¿›åˆ¶æ•°æ®æµä¹‹åï¼Œå…¨éƒ¨ä¾æ¬¡æäº¤ç»™ FmtParser è§£æï¼Œæœ€ç»ˆè§£æå‡ºé…å¯¹çš„ï¼ˆFmt + cmdï¼‰ã€‚ç¨‹åºçš„æ¥æ”¶æ–¹å’Œå‘é€æ–¹ï¼Œå¯äº‹å…ˆçº¦å®šå¥½æ¯ä¸€ä¸ªä¸ cmd å¯¹åº”
+çš„ Fmt å¯¹è±¡çš„æ•°æ®æ ¼å¼ï¼Œå¤„ç†æ—¶å°±å¯ä»¥ä¾æ® cmd åˆ¤æ–­ä¸å…¶å…³è”çš„ Fmt çš„å†…å®¹ã€‚
 
-Fmt Protocol ÊÇ×Ô¶¨ÒåĞ­Òé£¬Æä´æÔÚÓĞÀúÊ·Ô­Òò¡£Fmt Protocol ²ÉÓÃCÓïÑÔ±àĞ´£¬×÷ÕßÊÇ¹¨±ÙÓŞ¡£
-±¾ÎÄ×÷Õß Liigo ¸ºÔğ·â×°ÎªJava¿â£¬±¾ÎÄ½öÉæ¼°Æä¸ÅÄîºÍÓÃ·¨(for Java)¡£[ÊµÏÖÏ¸½Ú](#internal-impl)£¨Android NDK + Java JNI£©¡£
+Fmt Protocol æ˜¯è‡ªå®šä¹‰åè®®ï¼Œå…¶å­˜åœ¨æœ‰å†å²åŸå› ã€‚Fmt Protocol é‡‡ç”¨Cè¯­è¨€ç¼–å†™ï¼Œä½œè€…æ˜¯é¾šè¾Ÿæ„šã€‚
+æœ¬æ–‡ä½œè€… Liigo è´Ÿè´£å°è£…ä¸ºJavaåº“ï¼Œæœ¬æ–‡ä»…æ¶‰åŠå…¶æ¦‚å¿µå’Œç”¨æ³•(for Java)ã€‚[Java APIs](api/index.html)ï¼Œ[å®ç°ç»†èŠ‚](#internal-impl)ï¼ˆAndroid NDK + Java JNIï¼‰ã€‚
 
-# Fmt ¶ÔÏó
-Fmt ÊÇÒ»¸öÊı¾İ¶ÔÏó£¬¿ÉĞòÁĞ»¯ºÍ·´ĞòÁĞ»¯¡£ÆäÖĞ¿ÉÒÔ´æ´¢¸÷ÖÖÀàĞÍµÄÖµ£¨byte/short/double/byte[]/String/¶ÔÏó/Êı×é£©¡£
-Fmt¶ÔÏóµÄÀàĞÍ£¨ÒÔ int ±íÊ¾£©¾ö¶¨ÁËFmt¶ÔÏóÄÚ²¿´æ´¢µÄÖµ¡£Èç¹ûFmtµÄÀàĞÍÊÇ¡°¶ÔÏó¡±£¬ÆäÖĞ¿ÉÒÔ´æ·ÅÃüÃû³ÉÔ±£¨³ÉÔ±µÄÖµÊÇ±ğµÄFmt£©£»Èç¹ûFmtµÄÀàĞÍÊÇ¡°Êı×é¡±£¬ÆäÖĞ¿ÉÒÔÒÀ´Î´æ·Å¶à¸ö±ğµÄFmt¡£Fmt¶ÔÏóÊÇÊı¾İ±»·¢ËÍÇ°µÄ±íÏÖĞÎÊ½£¬Ò²ÊÇÊı¾İ±»½âÎöºóµÄ±íÏÖĞÎÊ½£ºÔÚÊı¾İ·¢ËÍÇ°£¬Fmt±»´ò°ü£¬ÔÚÊı¾İ½ÓÊÕºó£¬Fmt±»½â°ü¡£
+# Fmt å¯¹è±¡
+Fmt æ˜¯ä¸€ä¸ªæ•°æ®å¯¹è±¡ï¼Œå¯åºåˆ—åŒ–å’Œååºåˆ—åŒ–ã€‚å…¶ä¸­å¯ä»¥å­˜å‚¨å„ç§ç±»å‹çš„å€¼ï¼ˆbyte/short/double/byte[]/String/å¯¹è±¡/æ•°ç»„ï¼‰ã€‚
+Fmtå¯¹è±¡çš„ç±»å‹ï¼ˆä»¥ int è¡¨ç¤ºï¼‰å†³å®šäº†Fmtå¯¹è±¡å†…éƒ¨å­˜å‚¨çš„å€¼ã€‚å¦‚æœFmtçš„ç±»å‹æ˜¯â€œå¯¹è±¡â€ï¼Œå…¶ä¸­å¯ä»¥å­˜æ”¾å‘½åæˆå‘˜ï¼ˆæˆå‘˜çš„å€¼æ˜¯åˆ«çš„Fmtï¼‰ï¼›å¦‚æœFmtçš„ç±»å‹æ˜¯â€œæ•°ç»„â€ï¼Œå…¶ä¸­å¯ä»¥ä¾æ¬¡å­˜æ”¾å¤šä¸ªåˆ«çš„Fmtã€‚Fmtå¯¹è±¡æ˜¯æ•°æ®è¢«å‘é€å‰çš„è¡¨ç°å½¢å¼ï¼Œä¹Ÿæ˜¯æ•°æ®è¢«è§£æåçš„è¡¨ç°å½¢å¼ï¼šåœ¨æ•°æ®å‘é€å‰ï¼ŒFmtè¢«æ‰“åŒ…ï¼Œåœ¨æ•°æ®æ¥æ”¶åï¼ŒFmtè¢«è§£åŒ…ã€‚
 
-## Fmt ¶ÔÏóµÄÀàĞÍ
-Fmt ¶ÔÏóµÄÀàĞÍ£¬ÓÃÒ»¸ö int ±íÊ¾£¬¿ÉÒÔÊÇÒÔÏÂÊıÖµÖ®Ò»£º
+## Fmt å¯¹è±¡çš„ç±»å‹
+Fmt å¯¹è±¡çš„ç±»å‹ï¼Œç”¨ä¸€ä¸ª int è¡¨ç¤ºï¼Œå¯ä»¥æ˜¯ä»¥ä¸‹æ•°å€¼ä¹‹ä¸€ï¼š
 
 	public class FmtType {
 		public static final int _PDT_NONE     = 0x00;
 		
-		public static final int PDT_BYTE     = 0x01; //×Ö½Ú
-		public static final int PDT_SHORT    = 0x02; //¶ÌÕûÊı
+		public static final int PDT_BYTE     = 0x01; //å­—èŠ‚
+		public static final int PDT_SHORT    = 0x02; //çŸ­æ•´æ•°
 		public static final int PDT_USHORT   = 0x03;
-		public static final int PDT_INTEGER  = 0x04; //ÕûÊı
+		public static final int PDT_INTEGER  = 0x04; //æ•´æ•°
 		public static final int PDT_UINTEGER = 0x05;
-		public static final int PDT_LONG     = 0x06; //³¤ÕûÊı
+		public static final int PDT_LONG     = 0x06; //é•¿æ•´æ•°
 		public static final int PDT_ULONG    = 0x07;
-		public static final int PDT_DOUBLE   = 0x08; //Ë«¾«¶ÈĞ¡Êı
-		public static final int PDT_STRING   = 0x09; //¶ş½øÖÆÊı¾İ£¨»òÎÄ±¾£©
-		public static final int PDT_DATETIME = 0x0A; //ÈÕÆÚÊ±¼ä
+		public static final int PDT_DOUBLE   = 0x08; //åŒç²¾åº¦å°æ•°
+		public static final int PDT_STRING   = 0x09; //äºŒè¿›åˆ¶æ•°æ®ï¼ˆæˆ–æ–‡æœ¬ï¼‰
+		public static final int PDT_DATETIME = 0x0A; //æ—¥æœŸæ—¶é—´
 
-		public static final int PDT_ARRAY    = 0x0B; //Êı×é
-		public static final int PDT_OBJECT   = 0x0C; //¶ÔÏó£¨¿É°üº¬ÆäËûFmt³ÉÔ±£©
+		public static final int PDT_ARRAY    = 0x0B; //æ•°ç»„
+		public static final int PDT_OBJECT   = 0x0C; //å¯¹è±¡ï¼ˆå¯åŒ…å«å…¶ä»–Fmtæˆå‘˜ï¼‰
 
-		public static final int _PDT_RAW = 0xFE; //Ô­Ê¼Êı¾İÀàĞÍ
-		public static final int _PDT_END = 0xFF; //½áÎ²±êÊ¶·û
+		public static final int _PDT_RAW = 0xFE; //åŸå§‹æ•°æ®ç±»å‹
+		public static final int _PDT_END = 0xFF; //ç»“å°¾æ ‡è¯†ç¬¦
 	}
 
-¿Éµ÷ÓÃ Fmt.getType() µÃµ½fmt¶ÔÏóÊµÀıµÄÀàĞÍ£ºint t = fmt.getType();
+å¯è°ƒç”¨ Fmt.getType() å¾—åˆ°fmtå¯¹è±¡å®ä¾‹çš„ç±»å‹ï¼šint t = fmt.getType();
 
-## Fmt ¶ÔÏóµÄ´´½¨
-ÔÚ Java Àï¿ÉÒÔÍ¨¹ı Fmt.newXxxFmt() ÏµÁĞ·½·¨Éú³É Fmt ¶ÔÏóÊµÀı¡£Èç£º
+## Fmt å¯¹è±¡çš„åˆ›å»º
+åœ¨ Java é‡Œå¯ä»¥é€šè¿‡ Fmt.newXxxFmt() ç³»åˆ—æ–¹æ³•ç”Ÿæˆ Fmt å¯¹è±¡å®ä¾‹ã€‚å¦‚ï¼š
 
 	/** Create new Fmt objects. */
 	public static native Fmt newObjectFmt();
@@ -57,85 +57,85 @@ Fmt ¶ÔÏóµÄÀàĞÍ£¬ÓÃÒ»¸ö int ±íÊ¾£¬¿ÉÒÔÊÇÒÔÏÂÊıÖµÖ®Ò»£º
 	public static native Fmt newBinaryFmt(byte[] data);
 	public static Fmt newStringFmt(String str);
 
-## ¶ÁÈ¡ Fmt ¶ÔÏóµÄÖµ
-Ê×ÏÈĞèÒªÖªµÀFmt¶ÔÏóµÄÀàĞÍ£¨Fmt.getType()£©£¬È»ºó¸ù¾İÀàĞÍµ÷ÓÃ²»Í¬µÄ·½·¨£¨Fmt.getXXX()£©¶ÁÈ¡ÆäÖĞµÄÖµ¡£ÀıÈç£º
+## è¯»å– Fmt å¯¹è±¡çš„å€¼
+é¦–å…ˆéœ€è¦çŸ¥é“Fmtå¯¹è±¡çš„ç±»å‹ï¼ˆFmt.getType()ï¼‰ï¼Œç„¶åæ ¹æ®ç±»å‹è°ƒç”¨ä¸åŒçš„æ–¹æ³•ï¼ˆFmt.getXXX()ï¼‰è¯»å–å…¶ä¸­çš„å€¼ã€‚ä¾‹å¦‚ï¼š
 
 	if(fmt.getType() == FmtType.PDT_INTEGER) {
 		int value = fmt.getInt();
 	}
 
-µ«Èç¹ûÀàĞÍ²»ÊÇFmtType.PDT_INTEGER£¬¾Í²»ÄÜµ÷ÓÃ Fmt.getInt() ¡£
-ÔÚÊµ¼ÊÓ¦ÓÃÖĞ£¬Í¨³£ÊÇÊ×ÏÈÈ·¶¨cmd£¬½ø¶øÒ²ÖªµÀÁËÓëÆä¶ÔÓ¦µÄFmtµÄ¶ÔÏóÀàĞÍºÍÄÚÈİ£¨Í¨¹ıÊÂÏÈÔ¼¶¨£©¡£
+ä½†å¦‚æœç±»å‹ä¸æ˜¯FmtType.PDT_INTEGERï¼Œå°±ä¸èƒ½è°ƒç”¨ Fmt.getInt() ã€‚
+åœ¨å®é™…åº”ç”¨ä¸­ï¼Œé€šå¸¸æ˜¯é¦–å…ˆç¡®å®šcmdï¼Œè¿›è€Œä¹ŸçŸ¥é“äº†ä¸å…¶å¯¹åº”çš„Fmtçš„å¯¹è±¡ç±»å‹å’Œå†…å®¹ï¼ˆé€šè¿‡äº‹å…ˆçº¦å®šï¼‰ã€‚
 
-## ¶ÔÏóÀàĞÍµÄ Fmt
-Éú³ÉÒ»¸ö¶ÔÏóÀàĞÍµÄFmtÊµÀı£º
+## å¯¹è±¡ç±»å‹çš„ Fmt
+ç”Ÿæˆä¸€ä¸ªå¯¹è±¡ç±»å‹çš„Fmtå®ä¾‹ï¼š
 
 	Fmt fmt = Fmt.newObjectFmt();
 	assert(fmt.getType() == FmtType.PDT_OBJECT);
 
-Ìí¼ÓÃüÃû³ÉÔ±£º
+æ·»åŠ å‘½åæˆå‘˜ï¼š
 
 	fmt.addField("name", otherFmt);
 
-È¡³ÉÔ±Öµ£º
+å–æˆå‘˜å€¼ï¼š
 
 	Fmt field = fmt.getField("name");
 
-È¡³ÉÔ±¸öÊı£º
+å–æˆå‘˜ä¸ªæ•°ï¼š
 
 	fmt.getFildCount();
 	
-## Êı×éÀàĞÍµÄ Fmt
-Éú³ÉÒ»¸öÊı×éÀàĞÍµÄFmtÊµÀı£º
+## æ•°ç»„ç±»å‹çš„ Fmt
+ç”Ÿæˆä¸€ä¸ªæ•°ç»„ç±»å‹çš„Fmtå®ä¾‹ï¼š
 
 	Fmt fmt = Fmt.newArrayFmt();
 	assert(fmt.getType() == FmtType.PDT_ARRAY);
 
-Ìí¼ÓÊı×é³ÉÔ±£º
+æ·»åŠ æ•°ç»„æˆå‘˜ï¼š
 
 	fmt.arrayAppend(otherFmt);
 
-È¡Êı×é³ÉÔ±Öµ£º
+å–æ•°ç»„æˆå‘˜å€¼ï¼š
 
 	Fmt element = fmt.arrayAt(index);
 
-È¡Êı×é³ÉÔ±¸öÊı£º
+å–æ•°ç»„æˆå‘˜ä¸ªæ•°ï¼š
 
 	fmt.arrayLength();
 
-## Fmt ¶ÔÏóµÄ´ò°ü£¨Packet£©
-µ÷ÓÃ Fmt.packet(cmd) ·½·¨£¬½« Fmt ¶ÔÏó¸ú cmd Ò»Æğ´ò°ü£¬Éú³ÉÒ»¶Î¶ş½øÖÆÊı¾İÁ÷£¨byte[]£©£º
+## Fmt å¯¹è±¡çš„æ‰“åŒ…ï¼ˆPacketï¼‰
+è°ƒç”¨ Fmt.packet(cmd) æ–¹æ³•ï¼Œå°† Fmt å¯¹è±¡è·Ÿ cmd ä¸€èµ·æ‰“åŒ…ï¼Œç”Ÿæˆä¸€æ®µäºŒè¿›åˆ¶æ•°æ®æµï¼ˆbyte[]ï¼‰ï¼š
 
 	byte[] data = fmt.packet(ProtocolCmd.PT_PING, 0);
 
-ÕâÑùÉú³ÉµÄÊı¾İÁ÷¿ÉÒÔÍ¨¹ıSocket·¢ËÍ³öÈ¥¡£
+è¿™æ ·ç”Ÿæˆçš„æ•°æ®æµå¯ä»¥é€šè¿‡Socketå‘é€å‡ºå»ã€‚
 
-## Fmt ¶ÔÏóµÄÒıÓÃ¼ÆÊı
-ÒòÎª´ËĞ­ÒéÔ­±¾ÉíCÓïÑÔ±àĞ´µÄ£¬ĞèÒªÊÖ¹¤´¦ÀíÒıÓÃ¼ÆÊı£¬·â×°µ½JavaÖ®ºó£¬Ò²ÈÔÈ»ĞèÒªÈË¹¤´¦ÀíÒıÓÃ¼ÆÊı¡£
+## Fmt å¯¹è±¡çš„å¼•ç”¨è®¡æ•°
+å› ä¸ºæ­¤åè®®åŸæœ¬èº«Cè¯­è¨€ç¼–å†™çš„ï¼Œéœ€è¦æ‰‹å·¥å¤„ç†å¼•ç”¨è®¡æ•°ï¼Œå°è£…åˆ°Javaä¹‹åï¼Œä¹Ÿä»ç„¶éœ€è¦äººå·¥å¤„ç†å¼•ç”¨è®¡æ•°ã€‚
 
-	fmt.incRef(); // Ôö¼ÓÒıÓÃ¼ÆÊı
-	fmt.decRef(); // ¼õÉÙÒıÓÃ¼ÆÊı£¬µ±ÒıÓÃ¼ÆÊı¼õĞ¡µ½0Ê±£¬fmtÊµÀı½«±»ÊÍ·Å
+	fmt.incRef(); // å¢åŠ å¼•ç”¨è®¡æ•°
+	fmt.decRef(); // å‡å°‘å¼•ç”¨è®¡æ•°ï¼Œå½“å¼•ç”¨è®¡æ•°å‡å°åˆ°0æ—¶ï¼Œfmtå®ä¾‹å°†è¢«é‡Šæ”¾
 
-ĞÂÉú³ÉµÄFmt¶ÔÏóÊµÀı£¬ÆäÒıÓÃ¼ÆÊıÊÇ1£¬µ±²»ÔÙÊ¹ÓÃ¸Ã¶ÔÏóÊ±£¬±ØĞëµ÷ÓÃ fmt.decRef() ¼õĞ¡ÒıÓÃ¼ÆÊı£¬ÒÔ±£Ö¤Õı³£ÊÍ·Å¡£
-µ÷ÓÃ¶ÔÏó·½·¨£¨ÈçFmt.getField(), Fmt.arrayAt()£©·µ»ØµÄFmt¶ÔÏó£¬·µ»ØÇ°ÒÑ¾­Ôö¼ÓÁËÒıÓÃ¼ÆÊı£¬Ê¹ÓÃÍê±ÏÒ²±ØĞëµ÷ÓÃ decRef() È·±£Õı³£ÊÍ·Å¡£
+æ–°ç”Ÿæˆçš„Fmtå¯¹è±¡å®ä¾‹ï¼Œå…¶å¼•ç”¨è®¡æ•°æ˜¯1ï¼Œå½“ä¸å†ä½¿ç”¨è¯¥å¯¹è±¡æ—¶ï¼Œå¿…é¡»è°ƒç”¨ fmt.decRef() å‡å°å¼•ç”¨è®¡æ•°ï¼Œä»¥ä¿è¯æ­£å¸¸é‡Šæ”¾ã€‚
+è°ƒç”¨å¯¹è±¡æ–¹æ³•ï¼ˆå¦‚Fmt.getField(), Fmt.arrayAt()ï¼‰è¿”å›çš„Fmtå¯¹è±¡ï¼Œè¿”å›å‰å·²ç»å¢åŠ äº†å¼•ç”¨è®¡æ•°ï¼Œä½¿ç”¨å®Œæ¯•ä¹Ÿå¿…é¡»è°ƒç”¨ decRef() ç¡®ä¿æ­£å¸¸é‡Šæ”¾ã€‚
 
-## Fmt ¶ÔÏóµÄ½âÎö
-²Î¼û FmtParser¡£
+## Fmt å¯¹è±¡çš„è§£æ
+å‚è§ FmtParserã€‚
 
 
-# FmtParser£ºFmtĞ­ÒéÊı¾İ½âÎöÆ÷
-FmtParser¸ºÔğ´Ó¶ş½øÖÆÊı¾İÁ÷½âÎö³öÅä¶ÔµÄ Fmt ºÍ cmd£¬ÕâÒ»²½¿ÉÒÔÀí½âÎª Fmt.packet(cmd) µÄ·´²Ù×÷¡£
-´´½¨ FmtParser ½âÎöÆ÷¶ÔÏóÊµÀı£º
+# FmtParserï¼šFmtåè®®æ•°æ®è§£æå™¨
+FmtParserè´Ÿè´£ä»äºŒè¿›åˆ¶æ•°æ®æµè§£æå‡ºé…å¯¹çš„ Fmt å’Œ cmdï¼Œè¿™ä¸€æ­¥å¯ä»¥ç†è§£ä¸º Fmt.packet(cmd) çš„åæ“ä½œã€‚
+åˆ›å»º FmtParser è§£æå™¨å¯¹è±¡å®ä¾‹ï¼š
 
 	FmtParser parser = FmtParser.newFmtParser(false, false);
 
-¸ø½âÎöÆ÷¡°Î¹¡±Êı¾İ£º
+ç»™è§£æå™¨â€œå–‚â€æ•°æ®ï¼š
 
 	parser.pushData(data, callback);
 
-Í¨¹ı Socket ½ÓÊÕµ½¶ş½øÖÆÊı¾İÁ÷Ö®ºó£¬Ö±½Ó°´Ë³ĞòÎ¹¸ø½âÎöÆ÷¼´¿É£¬½âÎöÆ÷¸ºÔğ²ğ°ü½â°ü¡£
-½âÎöÆ÷Ã¿½âÎö³öÒ»¸öÅä¶ÔµÄ Fmt ºÍ cmd£¬¾Íµ÷ÓÃÒ»´Îcallback¶ÔÏó¡£callbackµÄÀàĞÍÊÇ OnFmtParsed ½Ó¿Ú£¬ÓĞÎ¨Ò»·½·¨ void onFmtParsed(Fmt fmt, int cmd)¡£
-ÒÔÏÂÊÇÊ¾Àı´úÂë£º
+é€šè¿‡ Socket æ¥æ”¶åˆ°äºŒè¿›åˆ¶æ•°æ®æµä¹‹åï¼Œç›´æ¥æŒ‰é¡ºåºå–‚ç»™è§£æå™¨å³å¯ï¼Œè§£æå™¨è´Ÿè´£æ‹†åŒ…è§£åŒ…ã€‚
+è§£æå™¨æ¯è§£æå‡ºä¸€ä¸ªé…å¯¹çš„ Fmt å’Œ cmdï¼Œå°±è°ƒç”¨ä¸€æ¬¡callbackå¯¹è±¡ã€‚callbackçš„ç±»å‹æ˜¯ OnFmtParsed æ¥å£ï¼Œæœ‰å”¯ä¸€æ–¹æ³• void onFmtParsed(Fmt fmt, int cmd)ã€‚
+ä»¥ä¸‹æ˜¯ç¤ºä¾‹ä»£ç ï¼š
 
 	OnFmtParsed callback = new OnFmtParsed() {
 		@Override
@@ -149,39 +149,39 @@ FmtParser¸ºÔğ´Ó¶ş½øÖÆÊı¾İÁ÷½âÎö³öÅä¶ÔµÄ Fmt ºÍ cmd£¬ÕâÒ»²½¿ÉÒÔÀí½âÎª Fmt.packet(
 	};
 
 	onReceivedDataFromSocket(byte[] data) {
-		parser.pushData(data, callback); // ÊÕµ½À´×ÔSocketµÄÊı¾İÁ÷Ö±½ÓÎ¹¸øFmtParser
+		parser.pushData(data, callback); // æ”¶åˆ°æ¥è‡ªSocketçš„æ•°æ®æµç›´æ¥å–‚ç»™FmtParser
 	}
 
-½âÎöÆ÷Ê¹ÓÃÍê±Ï±ØĞëÊÖ¹¤ÊÍ·Å£º
+è§£æå™¨ä½¿ç”¨å®Œæ¯•å¿…é¡»æ‰‹å·¥é‡Šæ”¾ï¼š
 
 	parser.close();
 
 <a name="internal-impl"></a>
-# ÊµÏÖÏ¸½Ú£¨Java JNI + Android NDK£©
+# å®ç°ç»†èŠ‚ï¼ˆJava JNI + Android NDKï¼‰
 
-±¾ÏîÄ¿ºËĞÄ´úÂëÔÚ src ºÍ jni Á½Ä¿Â¼ÄÚ¡£srcÄ¿Â¼ÄÚÖ÷ÒªÊÇ Java ´úÂë£¬Ö÷ÒªÓÉ Fmt.java ºÍ FmtParser.java ÕâÁ½¸ö Java Class ×é³É£¨Ğí¶à·½·¨Í¨¹ıJNI±¾µØ¿âÊµÏÖ£©£¬ÁíÓĞ¼¸¸ö¸¨ÖúÀàºÍ²âÊÔ´úÂë£¨²âÊÔ´úÂëÄ¿Ç°Ğ´ÔÚ MainActivity.java ÄÚ£©¡£jniÄ¿Â¼ÄÚÖ÷ÒªÊÇ C ´úÂë£¬com_tianxunnet_fmt_Fmt.c ºÍ com_tianxunnet_fmt_FmtParser.c ÕâÁ½¸öÎÄ¼şÊÇ±¾ÏîÄ¿ÄÚ×îºËĞÄµÄ´úÂë£¬Ö÷ÒªÓÃÓÚÊµÏÖ Fmt ºÍ FmtParser ÕâÁ½¸öJava±¾µØÀà£»com_tianxunnet_fmt_Fmt.h ºÍ com_tianxunnet_fmt_FmtParser.h ÊÇÊ¹ÓÃ javah ÒÀ¾İ Fmt.java / FmtParser.java ×Ô¶¯Éú³ÉµÄ£»jin/protocolÄ¿Â¼ÄÚÊÇFmtĞ­Òé±¾ÉíµÄÔ´´úÂë¡£±¾ÏîÄ¿ÖĞµÄJNI±¾µØ¿âĞèÊ¹ÓÃ Android NDK ±àÒë¡£
+æœ¬é¡¹ç›®æ ¸å¿ƒä»£ç åœ¨ src å’Œ jni ä¸¤ç›®å½•å†…ã€‚srcç›®å½•å†…ä¸»è¦æ˜¯ Java ä»£ç ï¼Œä¸»è¦ç”± Fmt.java å’Œ FmtParser.java è¿™ä¸¤ä¸ª Java Class ç»„æˆï¼ˆè®¸å¤šæ–¹æ³•é€šè¿‡JNIæœ¬åœ°åº“å®ç°ï¼‰ï¼Œå¦æœ‰å‡ ä¸ªè¾…åŠ©ç±»å’Œæµ‹è¯•ä»£ç ï¼ˆæµ‹è¯•ä»£ç ç›®å‰å†™åœ¨ MainActivity.java å†…ï¼‰ã€‚jniç›®å½•å†…ä¸»è¦æ˜¯ C ä»£ç ï¼Œcom_tianxunnet_fmt_Fmt.c å’Œ com_tianxunnet_fmt_FmtParser.c è¿™ä¸¤ä¸ªæ–‡ä»¶æ˜¯æœ¬é¡¹ç›®å†…æœ€æ ¸å¿ƒçš„ä»£ç ï¼Œä¸»è¦ç”¨äºå®ç° Fmt å’Œ FmtParser è¿™ä¸¤ä¸ªJavaæœ¬åœ°ç±»ï¼›com_tianxunnet_fmt_Fmt.h å’Œ com_tianxunnet_fmt_FmtParser.h æ˜¯ä½¿ç”¨ javah ä¾æ® Fmt.java / FmtParser.java è‡ªåŠ¨ç”Ÿæˆçš„ï¼›jin/protocolç›®å½•å†…æ˜¯Fmtåè®®æœ¬èº«çš„æºä»£ç ã€‚æœ¬é¡¹ç›®ä¸­çš„JNIæœ¬åœ°åº“éœ€ä½¿ç”¨ Android NDK ç¼–è¯‘ã€‚
 
-Ê¹ÓÃ javah Éú³É .h ÎÄ¼şµÄ²Ù×÷£¨±ØÒªÊ±Ö¸¶¨ javah È«Â·¾¶£©£º
+ä½¿ç”¨ javah ç”Ÿæˆ .h æ–‡ä»¶çš„æ“ä½œï¼ˆå¿…è¦æ—¶æŒ‡å®š javah å…¨è·¯å¾„ï¼‰ï¼š
 
 	cd <project-home>/bin/classes
 	javah com.tianxunnet.fmt.Fmt
 	javah com.tianxunnet.fmt.FmtParser
 
-ÒÔÉÏ²Ù×÷½«Éú³É com_tianxunnet_fmt_Fmt.h ºÍ com_tianxunnet_fmt_FmtParser.h Á½¸öÍ·ÎÄ¼ş£¬È»ºóĞèÒª½«ÆäÊÖ¹¤¸´ÖÆµ½ jni Ä¿Â¼¡£
+ä»¥ä¸Šæ“ä½œå°†ç”Ÿæˆ com_tianxunnet_fmt_Fmt.h å’Œ com_tianxunnet_fmt_FmtParser.h ä¸¤ä¸ªå¤´æ–‡ä»¶ï¼Œç„¶åéœ€è¦å°†å…¶æ‰‹å·¥å¤åˆ¶åˆ° jni ç›®å½•ã€‚
 
-Ê¹ÓÃ Android NDK ±àÒë±¾µØ¿âµÄ²Ù×÷£º
+ä½¿ç”¨ Android NDK ç¼–è¯‘æœ¬åœ°åº“çš„æ“ä½œï¼š
 
 	cd <project-home>/jni
 	/path/to/Android/ndk/ndk-build
 
-Èç¹ûµ±Ç°µçÄÔ²Ù×÷ÏµÍ³ÊÇ Windows »·¾³£¬ÒÔÉÏ²Ù×÷ĞèÔÚ Cygwin ÖÕ¶Ë»·¾³ÖĞÖ´ĞĞ£¬Èç£º
+å¦‚æœå½“å‰ç”µè„‘æ“ä½œç³»ç»Ÿæ˜¯ Windows ç¯å¢ƒï¼Œä»¥ä¸Šæ“ä½œéœ€åœ¨ Cygwin ç»ˆç«¯ç¯å¢ƒä¸­æ‰§è¡Œï¼Œå¦‚ï¼š
 
 	cd /cygdrive/c/Users/LIIGO/workspace/FmtProtocal
 	/cygdrive/c/Android/ndk/ndk-build
 
-Ö´ĞĞ³É¹¦½«±àÒëÉú³É libs/armeabi/libfmt-native.so£¬Ò²¾ÍÊÇÇ°ÃæÌáµ½µÄ±¾µØ¿â¡£
+æ‰§è¡ŒæˆåŠŸå°†ç¼–è¯‘ç”Ÿæˆ libs/armeabi/libfmt-native.soï¼Œä¹Ÿå°±æ˜¯å‰é¢æåˆ°çš„æœ¬åœ°åº“ã€‚
 
-ÎÄ¼ş jni/Android.mk Ò²ÊÇ±¾ÏîÄ¿µÄÖØÒª×é³É²¿·Ö£¬ËüÓÃÓÚÅäÖÃ±¾µØ¿âµÄ±àÒëÏ¸½Ú£¬ÄÚÈİÈçÏÂ£º
+æ–‡ä»¶ jni/Android.mk ä¹Ÿæ˜¯æœ¬é¡¹ç›®çš„é‡è¦ç»„æˆéƒ¨åˆ†ï¼Œå®ƒç”¨äºé…ç½®æœ¬åœ°åº“çš„ç¼–è¯‘ç»†èŠ‚ï¼Œå†…å®¹å¦‚ä¸‹ï¼š
 
 	LOCAL_PATH := $(call my-dir)
 	include $(CLEAR_VARS)
@@ -189,11 +189,11 @@ FmtParser¸ºÔğ´Ó¶ş½øÖÆÊı¾İÁ÷½âÎö³öÅä¶ÔµÄ Fmt ºÍ cmd£¬ÕâÒ»²½¿ÉÒÔÀí½âÎª Fmt.packet(
 	LOCAL_SRC_FILES := com_tianxunnet_fmt_Fmt.c com_tianxunnet_fmt_FmtParser.c protocol/protocol.c protocol/buffmtparser.c protocol/lib/automem.c protocol/lib/linkhash.c protocol/lib/arraylist.c
 	include $(BUILD_SHARED_LIBRARY)
 
-ÓÉÓÚ´ËÔ´Âë²Ö¿âÖĞÒÑ¾­°üº¬ÁË×Ô¶¯Éú³ÉµÄ .h ÎÄ¼ş£¬ºÍ±àÒëÉú³ÉµÄ .so£¬±àÒë±¾ÏîÄ¿²»±ØÒÀÀµ Java SDK, Anroid NDK ÒÔ¼° Cygwin£¬Ö»Ğè ADT (Android Developer Tools) Í¨¹ı Eclipse Ö±½Ó build ¼´¿É£¬Ò²¿ÉÔÚ Eclipse ÄÚµ÷ÊÔÔËĞĞ¡£
+ç”±äºæ­¤æºç ä»“åº“ä¸­å·²ç»åŒ…å«äº†è‡ªåŠ¨ç”Ÿæˆçš„ .h æ–‡ä»¶ï¼Œå’Œç¼–è¯‘ç”Ÿæˆçš„ .soï¼Œç¼–è¯‘æœ¬é¡¹ç›®ä¸å¿…ä¾èµ– Java SDK, Anroid NDK ä»¥åŠ Cygwinï¼Œåªéœ€ ADT (Android Developer Tools) é€šè¿‡ Eclipse ç›´æ¥ build å³å¯ï¼Œä¹Ÿå¯åœ¨ Eclipse å†…è°ƒè¯•è¿è¡Œã€‚
 
-Éú³ÉAPIÎÄµµ£¨±ØÒªÊ±Ö¸¶¨javadocÍêÕûÄ¿Â¼£©£º
+ç”ŸæˆAPIæ–‡æ¡£ï¼ˆå¿…è¦æ—¶æŒ‡å®šjavadocå®Œæ•´ç›®å½•ï¼‰ï¼š
 
 	cd <project-home>
 	javadoc -sourcepath src -encoding utf-8 -classpath bin/classes com.tianxunnet.fmt -d api -windowtitle "FmtProtocol APIs"
 
-¸ü¶àÏ¸½Ú´ıĞø¡£
+æ›´å¤šç»†èŠ‚å¾…ç»­ã€‚
