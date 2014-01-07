@@ -191,4 +191,9 @@ FmtParser负责从二进制数据流解析出配对的 Fmt 和 cmd，这一步可以理解为 Fmt.packet(
 
 由于此源码仓库中已经包含了自动生成的 .h 文件，和编译生成的 .so，编译本项目不必依赖 Java SDK, Anroid NDK 以及 Cygwin，只需 ADT (Android Developer Tools) 通过 Eclipse 直接 build 即可，也可在 Eclipse 内调试运行。
 
+生成API文档（必要时指定javadoc完整目录）：
+
+	cd <project-home>
+	javadoc -sourcepath src -encoding utf-8 -classpath bin/classes com.tianxunnet.fmt -d api -windowtitle "FmtProtocol APIs"
+
 更多细节待续。

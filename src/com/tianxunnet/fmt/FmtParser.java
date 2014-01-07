@@ -1,7 +1,8 @@
 package com.tianxunnet.fmt;
 
 /**
- * The Fmt parser. See doc of method pushData().
+ * Fmt对象协议数据解析器。使用方法参见 FmtParser.pushData() 和 OnFmtParsed 的文档，以及 README.md 中的示例代码。
+ * @see FmtParser#pushData(byte[], OnFmtParsed)
  * 
  * @author Liigo, 2013-12.
  */
@@ -17,19 +18,20 @@ public class FmtParser {
 	}
 
 	/**
-	 * Create a new FmtParser. Set isServer to true is you are run at server side.
-	 * The arg isFull is not used currently.
+	 * 创建  FmtParser 对象实例。
+	 * 如果调用者是服务器，设置参数 isServer 为 true。参数 isFull 目前未被使用。
 	 */
 	public static native FmtParser newFmtParser(boolean isServer, boolean isFull);
 
-	/** Close the parser. Must call it when no longer uses the parser. */
+	/** 销毁 FmtParser 对象实例。 */
 	public native void close();
 
-	/** Reset the parser status. */
+	/** 重置内部状态 */
 	public native void reset();
 
 	/**
-	 * Push data to parser. The OnFmtParsed callback will be called on every Fmt is parsed out.
+	 * 把数据 data 推入解析器，解析器每解析出一个Fmt对象（以及对应的协议编号cmd），就会调用一次callback。
+	 * @see OnFmtParsed
 	 */
 	public native void pushData(byte[] data, OnFmtParsed callback);
 }
