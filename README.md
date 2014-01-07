@@ -8,7 +8,7 @@ Fmt Protocol 是一套简单的自定义网络传输协议。其核心组件是 
 的 Fmt 对象的数据格式，处理时就可以依据 cmd 判断与其关联的 Fmt 的内容。
 
 Fmt Protocol 是自定义协议，其存在有历史原因。Fmt Protocol 采用C语言编写，作者是龚辟愚。
-本文作者 Liigo 负责封装为Java库，本文仅涉及其概念和用法(for Java)。[Java APIs](api/index.html)，[实现细节](#internal-impl)（Android NDK + Java JNI）。
+本文作者 Liigo 负责封装为Java库，本文仅涉及其概念和用法(for Java)。[Java APIs](http://htmlpreview.github.com/?https://github.com/liigo/FmtProtocol/blob/master/api/index.html)，[实现细节](#internal-impl)（Android NDK + Java JNI）。
 
 # Fmt 对象
 Fmt 是一个数据对象，可序列化和反序列化。其中可以存储各种类型的值（byte/short/double/byte[]/String/对象/数组）。
