@@ -19,7 +19,7 @@ public class FmtParser {
 
 	/**
 	 * 创建  FmtParser 对象实例。
-	 * 如果调用者是服务器，设置参数 isServer 为 true。参数 isFull 目前未被使用。
+	 * 如果要解析的数据包来自服务器，设置参数 isServer 为 true。参数 isFull 目前未被使用。
 	 */
 	public static native FmtParser newFmtParser(boolean isServer, boolean isFull);
 

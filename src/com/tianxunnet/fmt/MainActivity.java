@@ -176,6 +176,8 @@ public class MainActivity extends Activity {
 				// 经测试可以登录成功
 				byte[] packet = buildLoginPacket();
 				out.write(packet);
+				
+				//TODO: 通过 FmtParser.newFmtParser(true, false)解析服务器发回的数据包。
 
 				// 经测试可以提交URL
 				packet = buildUrlPacket();
