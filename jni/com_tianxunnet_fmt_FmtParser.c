@@ -1,5 +1,6 @@
 #include "com_tianxunnet_fmt_FmtParser.h"
 #include "protocol/buffmtparser.h"
+#include <stdint.h>
 
 // by Liigo, 2013-12.
 
@@ -24,7 +25,7 @@ static jfieldID get_parser_ptr_field_id(JNIEnv *env) {
 
 static void* get_parser_ptr(JNIEnv *env, jobject parser) {
 	jlong ptr = (*env)->GetLongField(env, parser, get_parser_ptr_field_id(env));
-	return (void*) ptr;
+	return (void*)(intptr_t) ptr;
 }
 
 static void set_parser_ptr(JNIEnv *env, jobject parser, jlong ptr) {
@@ -42,7 +43,7 @@ JNIEXPORT jobject JNICALL Java_com_tianxunnet_fmt_FmtParser_newFmtParser
 	jmethodID ctor = (*env)->GetMethodID(env, get_parser_class(env), "<init>", "(J)V");
 	if(ctor) {
 		void* parserPtr = buffered_fmt_parser_new(isServer==JNI_TRUE ? true : false);
-		jobject parser = (*env)->NewObject(env, get_parser_class(env), ctor, (jlong)parserPtr);
+		jobject parser = (*env)->NewObject(env, get_parser_class(env), ctor, (jlong)(intptr_t)parserPtr);
 		return parser;
 	}
 	return 0;
@@ -91,12 +92,12 @@ static void fmtparser_callback(short int cmd, void* userdata) {
 		jmethodID onFmtParsed = (*env)->GetMethodID(env, clsOnFmtParsed, "onFmtParsed", "(Lcom/tianxunnet/fmt/Fmt;I)V");
 		FMT* fmtPtr = buffered_fmt_parser_take(parserPtr);
 		jobject fmt = new_fmt(env, fmtPtr);
-		if(onFmtParsed && fmt) {
+		if(onFmtParsed) {
 			(*env)->CallVoidMethod(env, callback, onFmtParsed, fmt, (jint)(unsigned short)cmd);
 		}
 		// Liigo:
-		// buffered_fmt_parser_take() and buffered_fmt_parser_take() call fmt_object_get() twice,
-		// so here we call fmt_object_put() twice to make sure the fmtPtr be freed properly.
+		// buffered_fmt_parser_take() and new_fmt() call fmt_object_get() twice, so
+		// here we call fmt_object_put() twice to make sure the fmtPtr be freed properly.
 		// Leave fmt to java GC.
 		if(fmtPtr) {
 			fmt_object_put(fmtPtr);

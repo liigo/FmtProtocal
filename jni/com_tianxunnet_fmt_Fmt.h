@@ -105,19 +105,19 @@ JNIEXPORT void JNICALL Java_com_tianxunnet_fmt_Fmt_delField
 
 /*
  * Class:     com_tianxunnet_fmt_Fmt
- * Method:    getField
- * Signature: (Ljava/lang/String;)Lcom/tianxunnet/fmt/Fmt;
- */
-JNIEXPORT jobject JNICALL Java_com_tianxunnet_fmt_Fmt_getField
-  (JNIEnv *, jobject, jstring);
-
-/*
- * Class:     com_tianxunnet_fmt_Fmt
  * Method:    getFieldCount
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_com_tianxunnet_fmt_Fmt_getFieldCount
   (JNIEnv *, jobject);
+
+/*
+ * Class:     com_tianxunnet_fmt_Fmt
+ * Method:    getField
+ * Signature: (Ljava/lang/String;)Lcom/tianxunnet/fmt/Fmt;
+ */
+JNIEXPORT jobject JNICALL Java_com_tianxunnet_fmt_Fmt_getField
+  (JNIEnv *, jobject, jstring);
 
 /*
  * Class:     com_tianxunnet_fmt_Fmt
@@ -278,6 +278,22 @@ JNIEXPORT jbyteArray JNICALL Java_com_tianxunnet_fmt_Fmt_quickSerialize
  */
 JNIEXPORT jobject JNICALL Java_com_tianxunnet_fmt_Fmt_quickParse
   (JNIEnv *, jobject, jbyteArray);
+
+/*
+ * Class:     com_tianxunnet_fmt_Fmt
+ * Method:    staticPacket
+ * Signature: (II)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_tianxunnet_fmt_Fmt_staticPacket
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     com_tianxunnet_fmt_Fmt
+ * Method:    staticServerPacket
+ * Signature: (I)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_tianxunnet_fmt_Fmt_staticServerPacket
+  (JNIEnv *, jclass, jint);
 
 #ifdef __cplusplus
 }

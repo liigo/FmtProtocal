@@ -128,7 +128,7 @@ public class MainActivity extends Activity {
 		byte[] data = {/* fmt1: */3, 1, 0, 0, 6, 0, 0, 0, 0, 5, 4, 0, 0, 0, 1,
 					 /* aryFmt: */3, 1, 0, 0, 7, 0, 0, 0, 0, 12, 11, 4, 0, 0, 0, 1, 4, 0, 0, 0, 3, -1 };
 
-		final FmtParser parser = FmtParser.newFmtParser(false, false);
+		FmtParser parser = FmtParser.newFmtParser(false, false);
 
 		parser.pushData(data, new OnFmtParsed() {
 			int index = 0;
@@ -155,6 +155,47 @@ public class MainActivity extends Activity {
 		});
 
 		parser.close();
+
+		// 下面测试解析服务器发来的数据包
+		// 前提1：服务器发来的数据包是通过 Fmt.serverPacket()生成的；
+		// 前提2：解析器是针对服务器数据包的版本，即FmtParser.newFmtParser(true, false)第一个参数为true。
+
+		Fmt byteFmt = Fmt.newByteFmt((byte)120);
+		byte[] expectedBytePacket = { 3, 1, 0, 0, 7, 2, 1, 120 };
+		data = byteFmt.serverPacket(ProtocolCmd.PT_PONG);
+		check(Arrays.equals(data, expectedBytePacket));
+		FmtParser serverParser = FmtParser.newFmtParser(true, false);
+		serverParser.pushData(data, new OnFmtParsed() {
+
+			@Override
+			public void onFmtParsed(Fmt fmt, int cmd) {
+				// TODO Auto-generated method stub
+				check(fmt.getType() == FmtType.PDT_BYTE);
+				check(fmt.getByte() == 120);
+				check(cmd == ProtocolCmd.PT_PONG);
+			}
+			
+		});
+		serverParser.close();
+
+		// 下面测试解析staticPacket
+
+		byte[] expectedPongPacket = { 3, 1, 0, 0, 7, 0 };
+		byte[] pong = Fmt.staticServerPacket(ProtocolCmd.PT_PONG);
+		check(Arrays.equals(pong, expectedPongPacket));
+		serverParser = FmtParser.newFmtParser(true, false);
+		serverParser.pushData(pong, new OnFmtParsed() {
+
+			@Override
+			public void onFmtParsed(Fmt fmt, int cmd) {
+				// TODO Auto-generated method stub
+				check(fmt == null);
+				check(cmd == ProtocolCmd.PT_PONG);
+			}
+			
+		});
+		serverParser.close();
+
 	}
 
 	private void check(boolean expr) {

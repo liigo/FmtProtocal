@@ -1111,13 +1111,13 @@ static FMT * fmt_token_parse(struct _pdt_fmt_tok * tok)
 	switch(t)
 	{
 	case PDT_BYTE:
-		if( (tok->size - tok->pos) > sizeof(unsigned char))
+		if( (tok->size - tok->pos) >= sizeof(unsigned char))
 		{
 			result = fmt_new_byte(tok->bytes[tok->pos++]);
 		}
 		break;
 	case PDT_SHORT:
-		if( (tok->size - tok->pos) > sizeof(short))
+		if( (tok->size - tok->pos) >= sizeof(short))
 		{
 #if defined(LITTLEENDIANNESS)
 			result = fmt_new_short(SWAP_16(*(short*)&tok->bytes[tok->pos]));
@@ -1129,7 +1129,7 @@ static FMT * fmt_token_parse(struct _pdt_fmt_tok * tok)
 		}
 		break;
 	case PDT_USHORT:
-		if( (tok->size - tok->pos) > sizeof(unsigned short))
+		if( (tok->size - tok->pos) >= sizeof(unsigned short))
 		{
 	#if defined(LITTLEENDIANNESS)
 			result = fmt_new_short(SWAP_U16(*(unsigned short*)&tok->bytes[tok->pos]));
@@ -1140,7 +1140,7 @@ static FMT * fmt_token_parse(struct _pdt_fmt_tok * tok)
 		}
 		break;
 	case PDT_INTEGER:
-		if( (tok->size - tok->pos) > sizeof(int))
+		if( (tok->size - tok->pos) >= sizeof(int))
 		{
 #if defined(LITTLEENDIANNESS)
 			result = fmt_new_integer(SWAP_32(*(int*)&tok->bytes[tok->pos]));
@@ -1153,7 +1153,7 @@ static FMT * fmt_token_parse(struct _pdt_fmt_tok * tok)
 		break;
 	case PDT_UINTEGER:
 		printf("uinteger");
-		if( (tok->size - tok->pos) > sizeof(unsigned int))
+		if( (tok->size - tok->pos) >= sizeof(unsigned int))
 		{
 	#if defined(LITTLEENDIANNESS)
 			result = fmt_new_uinteger(SWAP_U32(*(unsigned int*)&tok->bytes[tok->pos]));
@@ -1164,7 +1164,7 @@ static FMT * fmt_token_parse(struct _pdt_fmt_tok * tok)
 		}
 		break;
 	case PDT_LONG:
-		if( (tok->size - tok->pos) > sizeof(__int64))
+		if( (tok->size - tok->pos) >= sizeof(__int64))
 		{
 #if defined(LITTLEENDIANNESS)
 			result = fmt_new_long(SWAP_64(*(__int64*)&tok->bytes[tok->pos]));
@@ -1176,7 +1176,7 @@ static FMT * fmt_token_parse(struct _pdt_fmt_tok * tok)
 		}
 		break;
 	case PDT_ULONG:
-		if( (tok->size - tok->pos) > sizeof(__UInt64))
+		if( (tok->size - tok->pos) >= sizeof(__UInt64))
 		{
 	#if defined(LITTLEENDIANNESS)
 			result = fmt_new_ulong(SWAP_U64(*(__UInt64*)&tok->bytes[tok->pos]));
@@ -1187,7 +1187,7 @@ static FMT * fmt_token_parse(struct _pdt_fmt_tok * tok)
 		}
 		break;
 	case PDT_DOUBLE:
-		if( (tok->size - tok->pos) > sizeof(double))
+		if( (tok->size - tok->pos) >= sizeof(double))
 		{
 			result = fmt_new_double(*(double*)&tok->bytes[tok->pos]);
 			tok->pos += sizeof(double);
@@ -1195,7 +1195,7 @@ static FMT * fmt_token_parse(struct _pdt_fmt_tok * tok)
 
 		break;
 	case PDT_DATETIME:
-		if( (tok->size - tok->pos) > sizeof(__int64))
+		if( (tok->size - tok->pos) >= sizeof(__int64))
 		{
 #if defined(LITTLEENDIANNESS)
 			result = fmt_new_datetime(SWAP_64(*(__int64 *)&tok->bytes[tok->pos]));

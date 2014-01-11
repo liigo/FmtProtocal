@@ -106,7 +106,7 @@ enum
 
 	// 升级通道,平台向服务器发送升级查询,带上平台已有的包信息.
 	// 服务器返回 需要升级的包信息 以及 需要删除的包信息.
-	PT_MODULE_INFO		= 0x0A,//客户端发送模块信息
+	PT_MODULE_INFO		= 0x0A, //客户端发送模块信息
 	PT_MODULE_UPDATE	= 0x0B, // 服务器检查得到需要升级的包，并通过这个指令返回
 	PT_MODULE_REMOVE	= 0x0C, // 服务器返回需要删除的软件包
 
@@ -127,10 +127,13 @@ enum
 	PT_MODULE_UPDATE_ERR = 0x12,
 
 	//挂接数据转发. 内部业务数据转发使用.
-	PT_ADD_MONITOR = 0X13,
+	PT_ADD_MONITOR = 0x13,
 	
 	//重启路由器
-	PT_REBOOT_ROUTER = 0X14,
+	PT_REBOOT_ROUTER = 0x14,
+
+	// 中心服务器发给中间服务器的命令，要求后者启动升级流程（即回复PT_MODULE_INFO）
+	PT_MODULE_REQUIRE = 0x15,
 
 	// 服务器回应给客户端的命令. 数据包有错误的情况下返回
 	

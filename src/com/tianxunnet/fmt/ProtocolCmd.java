@@ -45,10 +45,14 @@ public class ProtocolCmd {
 	public static final int PT_MODULE_UPDATE_ERR = 0x12;
 
 	// 挂接数据转发. 内部业务数据转发使用.
-	public static final int PT_ADD_MONITOR = 0X13;
+	public static final int PT_ADD_MONITOR = 0x13;
 
 	// 重启路由器
-	public static final int PT_REBOOT_ROUTER = 0X14;
+	public static final int PT_REBOOT_ROUTER = 0x14;
+
+	// 中心服务器发给中间服务器的命令，要求后者启动升级流程（即回复PT_MODULE_INFO）
+	public static final int PT_MODULE_REQUIRE = 0x15;
+
 
 	// 服务器回应给客户端的命令. 数据包有错误的情况下返回
 
@@ -87,7 +91,7 @@ public class ProtocolCmd {
 	public static final int PT_COMMIT_VID_ONLINE = MAKE_DATA_CMDID(0x0B);
 	public static final int PT_COMMIT_VID_OFFLINE = MAKE_DATA_CMDID(0x0C);
 
-	// 生成纯中转数据包的协议ID，这类数据包经过路由器中转直达中心服务器，中间过程不需要解析数据包。
+	// 生成纯中转数据包的协议ID，这类数据包经过路由器(midserver)中转直达中心服务器，中间过程不需要解析数据包。
 	private static int MAKE_DATA_CMDID(int n) {
 		final int mask = (int) 1 << 15;
 		return mask | n;

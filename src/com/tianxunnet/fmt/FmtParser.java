@@ -1,7 +1,8 @@
 package com.tianxunnet.fmt;
 
 /**
- * Fmt对象协议数据解析器。使用方法参见 FmtParser.pushData() 和 OnFmtParsed 的文档，以及 README.md 中的示例代码。
+ * Fmt对象协议数据解析器，负责数据的缓存、拆包和解析。
+ * <p>使用方法参见 FmtParser.pushData() 和 OnFmtParsed 的文档，以及 README.md 中的示例代码。
  * @see FmtParser#pushData(byte[], OnFmtParsed)
  * 
  * @author Liigo, 2013-12.
@@ -19,7 +20,7 @@ public class FmtParser {
 
 	/**
 	 * 创建  FmtParser 对象实例。
-	 * 如果要解析的数据包来自服务器，设置参数 isServer 为 true。参数 isFull 目前未被使用。
+	 * 如果要解析的数据包来自服务器，应设置参数 isServer 为 true，否则为false。参数 isFull 目前未被使用。
 	 */
 	public static native FmtParser newFmtParser(boolean isServer, boolean isFull);
 

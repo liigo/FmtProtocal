@@ -31,7 +31,7 @@ Fmt 对象的类型，用一个 int 表示，可以是以下数值之一：
 		public static final int PDT_STRING   = 0x09; //二进制数据（或文本）
 		public static final int PDT_DATETIME = 0x0A; //日期时间
 
-		public static final int PDT_ARRAY    = 0x0B; //数组
+		public static final int PDT_ARRAY    = 0x0B; //数组（可包含其他Fmt成员）
 		public static final int PDT_OBJECT   = 0x0C; //对象（可包含其他Fmt成员）
 
 		public static final int _PDT_RAW = 0xFE; //原始数据类型
@@ -77,13 +77,17 @@ Fmt 对象的类型，用一个 int 表示，可以是以下数值之一：
 
 	fmt.addField("name", otherFmt);
 
-取成员值：
-
-	Fmt field = fmt.getField("name");
+另有其他方便添加对象Fmt成员的方法，如 addIntField(), addStringField() 等。
 
 取成员个数：
 
 	fmt.getFildCount();
+
+取成员值：
+
+	Fmt field = fmt.getField("name");
+
+另有其他方便读取对象Fmt成员值的方法，如 getIntField(), getStringField() 等。
 	
 ## 数组类型的 Fmt
 生成一个数组类型的Fmt实例：
@@ -159,13 +163,19 @@ FmtParser负责从二进制数据流解析出配对的 Fmt 和 cmd，这一步�
 <a name="internal-impl"></a>
 # 实现细节（Java JNI + Android NDK）
 
-本项目核心代码在 src 和 jni 两目录内。src目录内主要是 Java 代码，主要由 Fmt.java 和 FmtParser.java 这两个 Java Class 组成（许多方法通过JNI本地库实现），另有几个辅助类和测试代码（测试代码目前写在 MainActivity.java 内）。jni目录内主要是 C 代码，com_tianxunnet_fmt_Fmt.c 和 com_tianxunnet_fmt_FmtParser.c 这两个文件是本项目内最核心的代码，主要用于实现 Fmt 和 FmtParser 这两个Java本地类；com_tianxunnet_fmt_Fmt.h 和 com_tianxunnet_fmt_FmtParser.h 是使用 javah 依据 Fmt.java / FmtParser.java 自动生成的；jin/protocol目录内是Fmt协议本身的源代码。本项目中的JNI本地库需使用 Android NDK 编译。
+本项目核心代码在 src 和 jni 两目录内。src目录内主要是 Java 代码，主要由 Fmt.java 和 FmtParser.java 这两个 Java Class 组成（许多方法通过JNI本地库实现），另有几个辅助类和测试代码（测试代码目前写在 MainActivity.java 内）。jni目录内主要是 C 代码，com_tianxunnet_fmt_Fmt.c 和 com_tianxunnet_fmt_FmtParser.c 这两个文件是本项目内最核心的代码，主要用于实现 Fmt 和 FmtParser 这两个Java本地类；com_tianxunnet_fmt_Fmt.h 和 com_tianxunnet_fmt_FmtParser.h 是使用 javah 依据 Fmt.java / FmtParser.java 自动生成的；jni/protocol目录内是Fmt协议本身的源代码。本项目中的JNI本地库需使用 Android NDK 编译。
 
 使用 javah 生成 .h 文件的操作（必要时指定 javah 全路径）：
 
 	cd <project-home>/bin/classes
 	javah com.tianxunnet.fmt.Fmt
 	javah com.tianxunnet.fmt.FmtParser
+
+以 Windows 操作系统环境下为例：
+
+	cd D:\Liigo\github\FmtProtocol\bin\classes
+	"C:\Program Files\Java\jdk1.7.0_45\bin\javah.exe" com.tianxunnet.fmt.Fmt
+	"C:\Program Files\Java\jdk1.7.0_45\bin\javah.exe" com.tianxunnet.fmt.FmtParser
 
 以上操作将生成 com_tianxunnet_fmt_Fmt.h 和 com_tianxunnet_fmt_FmtParser.h 两个头文件，然后需要将其手工复制到 jni 目录。
 
@@ -176,8 +186,8 @@ FmtParser负责从二进制数据流解析出配对的 Fmt 和 cmd，这一步�
 
 如果当前电脑操作系统是 Windows 环境，以上操作需在 Cygwin 终端环境中执行，如：
 
-	cd /cygdrive/c/Users/LIIGO/workspace/FmtProtocal
-	/cygdrive/c/Android/ndk/ndk-build
+	cd /cygdrive/D/Liigo/github/FmtProtocol/jni
+	/cygdrive/C/Android/ndk/ndk-build
 
 执行成功将编译生成 libs/armeabi/libfmt-native.so，也就是前面提到的本地库。
 

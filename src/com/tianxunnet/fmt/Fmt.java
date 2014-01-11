@@ -161,13 +161,69 @@ public class Fmt {
 	/** 删除“对象类型的Fmt对象”指定名称的成员。调用本方法前需保证 getType()==FmtType.PDT_OBJECT。 */
 	public native void delField(String name);
 
-	/** 取“对象类型的Fmt对象”指定名称的成员值。调用本方法前需保证 getType()==FmtType.PDT_OBJECT。 */
-	public native Fmt getField(String name);
-
 	/** 取“对象类型的Fmt对象”所有成员的个数。调用本方法前需保证 getType()==FmtType.PDT_OBJECT。 */
 	public native int getFieldCount();
 
+	/** 
+	 * 取“对象类型的Fmt对象”指定名称的成员值。调用本方法前需保证 getType()==FmtType.PDT_OBJECT。
+	 * 如果指定名称的成员不存在，返回null。
+	 */
+	public native Fmt getField(String name);
 
+	/** 取对象类型Fmt内指定名称的byte成员值，不存在则返回默认设定值defaultValue。本方法是getField()方法的包装简化。 */
+	public byte getByteField(String name, byte defaultValue) {
+		Fmt fmt = getField(name);
+		byte value = (fmt != null && fmt.getType() == FmtType.PDT_BYTE) ? fmt.getByte() : defaultValue;
+		fmt.decRef();
+		return value;
+	}
+
+	/** 取对象类型Fmt内指定名称的short成员值，不存在则返回默认设定值defaultValue。本方法是getField()方法的包装简化。 */
+	public short getShortField(String name, short defaultValue) {
+		Fmt fmt = getField(name);
+		short value = (fmt != null && fmt.getType() == FmtType.PDT_SHORT) ? fmt.getShort() : defaultValue;
+		fmt.decRef();
+		return value;
+	}
+
+	/** 取对象类型Fmt内指定名称的int成员值，不存在则返回默认设定值defaultValue。本方法是getField()方法的包装简化。 */
+	public int getIntField(String name, int defaultValue) {
+		Fmt fmt = getField(name);
+		return (fmt != null && fmt.getType() == FmtType.PDT_INTEGER) ? fmt.getInt() : defaultValue; 
+	}
+
+	/** 取对象类型Fmt内指定名称的long成员值，不存在则返回默认设定值defaultValue。本方法是getField()方法的包装简化。 */
+	public long getLongField(String name, long defaultValue) {
+		Fmt fmt = getField(name);
+		long value = (fmt != null && fmt.getType() == FmtType.PDT_LONG) ? fmt.getLong() : defaultValue;
+		fmt.decRef();
+		return value;
+	}
+
+	/** 取对象类型Fmt内指定名称的short成员值，不存在则返回默认设定值defaultValue（单位是秒）。本方法是getField()方法的包装简化。 */
+	public long getDatetimeField(String name, long defaultValue) {
+		Fmt fmt = getField(name);
+		long value = (fmt != null && fmt.getType() == FmtType.PDT_DATETIME) ? fmt.getDatetime() : defaultValue;
+		fmt.decRef();
+		return value;
+	}
+
+	/** 取对象类型Fmt内指定名称的String成员值，不存在则返回默认设定值defaultValue。本方法是getField()方法的包装简化。 */
+	public String getStringField(String name, String defaultValue) {
+		Fmt fmt = getField(name);
+		String value = (fmt != null && fmt.getType() == FmtType.PDT_STRING) ? fmt.getString() : defaultValue;
+		fmt.decRef();
+		return value;
+	}
+	
+	/** 取对象类型Fmt内指定名称的String成员值，不存在则返回默认设定值defaultValue。本方法是getField()方法的包装简化。 */
+	public byte[] getBinaryField(String name, byte[] defaultValue) {
+		Fmt fmt = getField(name);
+		byte[] value = (fmt != null && fmt.getType() == FmtType.PDT_STRING) ? fmt.getBinary() : defaultValue;
+		fmt.decRef();
+		return value;
+	}
+	
 // Manage Array Fmt elements
 	
 	/** 取“数组类型的Fmt对象”内所有数组成员的个数。调用本方法前需保证 getType()==FmtType.PDT_ARRAY。 */
@@ -250,7 +306,7 @@ public class Fmt {
 	 * 把此 Fmt 对象，和协议编号cmd一起，打包为一段二进制数据流，用于网络传输（通过Socket）。
 	 * 
 	 * @param cmd
-	 *            可以是 ProtocolCmd.PT_xxx 系列值之一, @see ProtocolCmd。此参数的取值与协议约定有关。
+	 *            可以是 ProtocolCmd.PT_xxx 系列值之一, @see ProtocolCmd。此参数的取值与协议约定有关，但必须小于65536。
 	 * @param userid
 	 *            必须是0，此参数目前未被使用。
 	 * @return 返回打包后的二进制数据流
@@ -263,7 +319,13 @@ public class Fmt {
 	/** 快速序列化 Fmt 对象 */
 	public native byte[] quickSerialize();
 
-	/** 快速解析 Fmt 对象 */
+	/** 快速解析 Fmt 对象。可能返回null，表示未解析出完整的Fmt对象。 */
 	public native Fmt quickParse(byte[] data);
+	
+	/** 功能类似于packet()，但此方法生成的数据包不包含Fmt对象。 */
+	public static native byte[] staticPacket(int cmd, int userid);
+	
+	/** 功能类似于serverPacket()，但此方法生成的数据包不包含Fmt对象。 */
+	public static native byte[] staticServerPacket(int cmd);
 
 }

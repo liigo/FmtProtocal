@@ -42,7 +42,7 @@ public class FmtType {
 	public static final int PDT_DATETIME = 0x0A; // 日期时间
 
 	/** 表示Fmt对象的类型是数组（数组成员均是相同类型的Fmt对象） */
-	public static final int PDT_ARRAY = 0x0B; // 数组
+	public static final int PDT_ARRAY = 0x0B; // 数组（可包含其他Fmt成员）
 	
 	/** 表示Fmt对象的类型是对象（有多个命名成员，均可以是各种类型的Fmt对象） */
 	public static final int PDT_OBJECT = 0x0C; // 对象（可包含其他Fmt成员）

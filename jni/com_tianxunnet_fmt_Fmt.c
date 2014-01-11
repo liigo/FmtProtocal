@@ -1,5 +1,6 @@
 #include <com_tianxunnet_fmt_Fmt.h>
 #include "protocol/protocol.h"
+#include <stdint.h>
 
 // by Liigo, 2013-12.
 
@@ -31,11 +32,11 @@ static jfieldID get_fmt_ptr_field_id(JNIEnv *env) {
 
 static FMT* get_fmt_ptr(JNIEnv *env, jobject fmt) {
 	jlong ptr = (*env)->GetLongField(env, fmt, get_fmt_ptr_field_id(env));
-	return (FMT*) ptr;
+	return (FMT*)(intptr_t) ptr;
 }
 
 static void set_fmt_ptr(JNIEnv *env, jobject fmt, FMT* ptr) {
-	(*env)->SetLongField(env, fmt, get_fmt_ptr_field_id(env), (jlong)ptr);
+	(*env)->SetLongField(env, fmt, get_fmt_ptr_field_id(env), (jlong)(intptr_t)ptr);
 }
 
 jobject new_fmt(JNIEnv *env, FMT* fmtPtr) {
@@ -45,7 +46,7 @@ jobject new_fmt(JNIEnv *env, FMT* fmtPtr) {
 	// new Fmt(fmtPtr)
 	jmethodID ctor = (*env)->GetMethodID(env, get_fmt_class(env), "<init>", "(J)V");
 	if(ctor) {
-		jobject fmt = (*env)->NewObject(env, get_fmt_class(env), ctor, (jlong)fmtPtr);
+		jobject fmt = (*env)->NewObject(env, get_fmt_class(env), ctor, (jlong)(intptr_t)fmtPtr);
 		return fmt;
 	}
 	fmt_object_put(fmtPtr);
@@ -185,6 +186,16 @@ JNIEXPORT void JNICALL Java_com_tianxunnet_fmt_Fmt_delField
 
 /*
  * Class:     com_tianxunnet_fmt_Fmt
+ * Method:    getFieldCount
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_tianxunnet_fmt_Fmt_getFieldCount
+  (JNIEnv *env, jobject fmt) {
+	return (jint) fmt_object_total(get_fmt_ptr(env, fmt));
+}
+
+/*
+ * Class:     com_tianxunnet_fmt_Fmt
  * Method:    getField
  * Signature: (Ljava/lang/String;)Lcom/tianxunnet/fmt/Fmt;
  */
@@ -195,16 +206,6 @@ JNIEXPORT jobject JNICALL Java_com_tianxunnet_fmt_Fmt_getField
 	FMT* newFmtPtr = fmt_object_lookup(fmtPtr, (const char*)utf8);
 	(*env)->ReleaseStringUTFChars(env, name, utf8);
 	return new_fmt(env, newFmtPtr);
-}
-
-/*
- * Class:     com_tianxunnet_fmt_Fmt
- * Method:    getFieldCount
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_tianxunnet_fmt_Fmt_getFieldCount
-  (JNIEnv *env, jobject fmt) {
-	return (jint) fmt_object_total(get_fmt_ptr(env, fmt));
 }
 
 /*
@@ -444,4 +445,34 @@ JNIEXPORT jobject JNICALL Java_com_tianxunnet_fmt_Fmt_quickParse
 	FMT* fmtPtr = fmt_quick_parse((char*)data, (int)len);
 	(*env)->ReleaseByteArrayElements(env, ary, data, JNI_ABORT);
 	return new_fmt(env, fmtPtr);
+}
+
+/*
+ * Class:     com_tianxunnet_fmt_Fmt
+ * Method:    staticPacket
+ * Signature: (II)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_tianxunnet_fmt_Fmt_staticPacket
+  (JNIEnv *env, jclass fmtcls, jint cmd, jint userid) {
+	automem_t mem;
+	automem_init(&mem, 128);
+	fmt_packet_build(&mem, NULL, (short)cmd, (unsigned int)userid);
+	jbyteArray ary = create_jbyte_array(env, mem.pdata, mem.size);
+	automem_uninit(&mem);
+	return ary;
+}
+
+/*
+ * Class:     com_tianxunnet_fmt_Fmt
+ * Method:    staticServerPacket
+ * Signature: (I)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_tianxunnet_fmt_Fmt_staticServerPacket
+  (JNIEnv *env, jclass fmtcls, jint cmd) {
+	automem_t mem;
+	automem_init(&mem, 128);
+	fmt_packet_build_server(&mem, NULL, (short)cmd);
+	jbyteArray ary = create_jbyte_array(env, mem.pdata, mem.size);
+	automem_uninit(&mem);
+	return ary;
 }
